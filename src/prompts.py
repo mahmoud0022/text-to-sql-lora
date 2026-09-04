@@ -27,3 +27,53 @@ Question:
 
 SQL:
 """
+
+
+def build_few_shot_prompt(schema: str, question: str) -> str:
+    return f"""Database schema:
+CREATE TABLE students (
+    id INTEGER,
+    name TEXT,
+    grade INTEGER
+);
+
+Question:
+List the names of all students.
+
+SQL:
+SELECT name FROM students;
+
+Database schema:
+CREATE TABLE products (
+    id INTEGER,
+    name TEXT,
+    price REAL
+);
+
+Question:
+What is the most expensive product?
+
+SQL:
+SELECT name FROM products ORDER BY price DESC LIMIT 1;
+
+Database schema:
+CREATE TABLE orders (
+    id INTEGER,
+    customer_id INTEGER,
+    total REAL
+);
+
+Question:
+How many orders are there?
+
+SQL:
+SELECT COUNT(*) FROM orders;
+
+Database schema:
+{schema}
+
+Question:
+{question}
+
+SQL:
+"""
